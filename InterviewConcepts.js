@@ -61,6 +61,10 @@
 // ==========================================================
 
 // ==========================================================
+// Linked Lists / Doubly Linked Lists
+// ==========================================================
+
+// ==========================================================
 // Big O
 // ==========================================================
 
@@ -80,11 +84,31 @@
 // Caching
 // ==========================================================
 
+// Alleviate load on database queries, improving performance as it's faster.
+// Eviction Factor = x * cache size | ie. factor of 0.8f with cache size of = 0.8 * 4 = 3
+
+// Least Recently Used (LRU)
+
+// Doubly Linked List and Hash Table. Hash Table has a key that is the reference id, and then value being the index of the array holding the doubly linked lists. O(1) look up time, and worst case O(n) when looking through the linked list. Basically, the hashing function is as follows: if the cache size limit is reached, pop off the end of the list and append the new reference to the front. If the reference already exists, update it by putting it to the front of the list. 
+
+// Least Frequently Used (LFU)
+
+// Doubly Linked List and Hash Table. Same set up as before except that the hashing function will assign nodes by frequencies. The indices of the array holding the nodes will be representative of the frequencies of the requests. If cache size if 4, the max frequency is 4. If there is a doubly linked list on index 3 of the array, and you request something on that list again, update the list and put the new request node to the head.
+
 // ==========================================================
 // Javascript Inheritance, Prototypal Inheritance
 // ==========================================================
 
 
+// ==========================================================
+// General Tips
+// ==========================================================
+
+// If a question wants you to optimize a complexity, usually you can sacrifice the other to do so.
 
 
+// ==========================================================
+// Backburner Topics
+// ==========================================================
+// HTTP request caching, enhanced server caching, proxy server, progressive CSS/JS/image loading. DB Shards
 

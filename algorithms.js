@@ -9,8 +9,8 @@
 var spiralTraverseMatrix = function (array) {
 	var results = [];
 	var starting_row_index = 0;
-	var ending_row_index = array.length - 1;
 	var starting_col_index = 0;
+	var ending_row_index = array.length - 1;
 	var ending_col_index = array[0].length - 1;
 
 	while (starting_col_index <= ending_col_index && starting_row_index <= ending_row_index) {
@@ -184,51 +184,63 @@ function LinkedList () {
 	};
 };
 
-LinkedList.prototype.addNode = function(node) {
+LinkedList.prototype.addNode = function (node) {
 	this.list.push(node);
 };
 
 function printLinkedList (node) {
 	console.log(node.val);
-	if (node.child()) {
-		printLinkedList(node.child());
+	if (node.refersTo) {
+		return printLinkedList(node.next());
 	}
 };
 
 function Node (val) {
 	this.val = val;
-	this.next = null;
-	this.child = function () {
-		return this.next;
-	};
+	this.refersTo = null;
 };
 
-Node.prototype.referTo = function(node) {
-	node.next = this;
+Node.prototype.next = function() {
+	return this.refersTo;
 };
 
-Node.prototype.print = function() {
-	console.log(this.val);
+Node.prototype.setRef = function(node) {
+	this.refersTo = node;
 };
 
 var linkedList = new LinkedList ();
-var parentNode = new Node (10);
-var childNode = new Node (5);
-var grandChildNode = new Node (1);
-linkedList.addNode(parentNode);
-linkedList.addNode(childNode);
-linkedList.addNode(grandChildNode);
-childNode.referTo(parentNode);
-grandChildNode.referTo(childNode);
+var head = new Node (1);
+var firstNode = new Node (2);
+var secondNode = new Node (3);
+linkedList.addNode(head);
+linkedList.addNode(firstNode);
+linkedList.addNode(secondNode);
+head.setRef(firstNode);
+console.log("head RefersTo", head);
+firstNode.setRef(secondNode);
 printLinkedList(linkedList.head());
 
 // ====================================================================
 // Reverse/Print a Linked List
 // ====================================================================
 
-function reverseLinkedList () {
+function reverseLinkedList (node) { 
+	var previous = null;
+	var newList = [];
 
-};
+	while (node) {
+		newList.unshift(node);
+		save = node.next();
+		node.setRef(previous);
+		previous = node; 
+		node = save
+	} 
+
+	for (var i = 0; i < newList.length; i++){
+		console.log(newList[i].val);
+	}
+}
+
 
 
 
