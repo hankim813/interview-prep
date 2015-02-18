@@ -36,7 +36,7 @@ function printMatrixInSpiral (matrix) {
 		endingColIndex--;
 
 		// Traverse Right to Left if Needed
-		if (startingRowIndex <= endingRowIndex) {
+		if (startingRowIndex < endingRowIndex) {
 			for (var i = endingColIndex; i >= startingColIndex; i--) {
 				spiralOrder.push(matrix[endingRowIndex][i]);
 			}
@@ -45,7 +45,7 @@ function printMatrixInSpiral (matrix) {
 		endingRowIndex--;
 
 		// Traverse Bottom to Top if Needed
-		if (startingColIndex <= endingColIndex) {
+		if (startingColIndex < endingColIndex) {
 			for (var i = endingRowIndex; i >= startingRowIndex; i--) {
 				spiralOrder.push(matrix[i][startingColIndex]);
 			}

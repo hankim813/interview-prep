@@ -25,7 +25,7 @@ var spiralTraverseMatrix = function (array) {
 		}
 		ending_col_index --;
 
-		if (starting_row_index <= ending_row_index) {
+		if (starting_row_index < ending_row_index) {
 			for (var i = ending_col_index; i >= starting_col_index; i--) {
 				results.push(array[ending_row_index][i]);
 			}
@@ -33,7 +33,7 @@ var spiralTraverseMatrix = function (array) {
 
 		ending_row_index --;
 
-		if (starting_col_index <= ending_col_index) {
+		if (starting_col_index < ending_col_index) {
 			for (var i = ending_row_index; i >= starting_row_index; i--) {
 				results.push(array[i][starting_col_index]);
 			}
@@ -216,7 +216,6 @@ linkedList.addNode(head);
 linkedList.addNode(firstNode);
 linkedList.addNode(secondNode);
 head.setRef(firstNode);
-console.log("head RefersTo", head);
 firstNode.setRef(secondNode);
 printLinkedList(linkedList.head());
 
@@ -239,10 +238,73 @@ function reverseLinkedList (node) {
 	for (var i = 0; i < newList.length; i++){
 		console.log(newList[i].val);
 	}
+};
+
+// Complexity
+// Greedy/Bucketing Approach. O(n) time and space
+
+// ====================================================================
+// Anagrams: Number to Letters
+// ====================================================================
+
+// Input: an integer where 1-26 represents a corresponding letter in the alphabet where num > 0
+// Output: all possible combinations of letters
+
+// i.e. 111 = a, ka, aaa, ak
+
+var alphabet = {
+		1: 'a',
+		2: 'b',
+		3: 'c',
+		4: 'd',
+		5: 'e',
+		6: 'f',
+		7: 'g',
+		8: 'h',
+		9: 'i',
+		10:'j',
+		11:'k',
+		12:'l',
+		13:'m',
+		14:'n',
+		15:'o',
+		16:'p',
+		17:'q',
+		18:'r',
+		19:'s',
+		20:'t',
+		21:'u',
+		22:'v',
+		23:'w',
+		24:'x',
+		25:'y',
+		26:'z'
+	}
+num = 1234
+
+1,2,3,4
+1,23,4
+12,3,4
+
+function numsToLetters (num) {
+	var number = numToString(num);
+	var combos;
+	var currentNum = '';
+	var letters = [];
+
+	for (var i = 0; i < number.length; i++;) {
+
+	}
+
+	for (var h = 0; h < combos.length; h++) {
+		console.log(alphabet[combos[h]]);
+	}
+
+};
+
+function numToString(n) {
+	return n + '';
 }
-
-
-
 
 
 
