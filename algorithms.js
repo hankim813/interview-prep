@@ -179,9 +179,10 @@ function javascriptBugFix () {
 
 function LinkedList () {
 	this.list = [];
-	this.head = function () {
-		return this.list[0];
-	};
+};
+
+LinkedList.prototype.head = function() {
+	return this.list[0];
 };
 
 LinkedList.prototype.addNode = function (node) {
@@ -242,6 +243,151 @@ function reverseLinkedList (node) {
 
 // Complexity
 // Greedy/Bucketing Approach. O(n) time and space
+
+// ====================================================================
+// DLL: Create a Doubly Linked List
+// ====================================================================
+
+function DoublyLinkedList () {
+	this.list = [];
+}
+
+DoublyLinkedList.prototype = {
+	head: function () {
+		var head;
+		for (var i = 0; i < this.list.length; i++) {
+			if (!this.list[i].referredBy) {
+				head = this.list[i];
+			}
+		}
+		return head;
+	},
+
+	tail: function () {
+		var tail;
+		for (var i = 0; i < this.list.length; i++) {
+			if (!this.list[i].refersTo) {
+				tail = this.list[i];
+			}
+		}
+		return tail;
+	},
+
+	addNode: function (node) {
+		this.list.push(node);
+	},
+
+	print: function () {
+		var head = this.head();
+		var newList = [];
+
+		function recurse (node) {
+			if (!node.refersTo) {
+				newList.push(node);
+				recurseBack(node)
+			} else {
+				newList.push(node);
+				recurse(node.next());
+			}
+		};
+
+		function recurseBack (node) {
+			if (!node.referredBy) {
+				return
+			} else {
+				newList.push(node.prev());
+				recurseBack(node.prev());
+			}
+		};
+
+		function printNewList () {
+			for (var i = 0; i < newList.length; i++) {
+				console.log(newList[i]);
+			}
+		};
+
+		recurse(head);
+		printNewList();
+	},
+
+	reverseListandPrint: function () {
+
+		function recurse (node) {
+			if (!node.refersTo) {
+				var next = node.prev();
+				node.refersTo = next;
+				node.referredBy = null;
+				recurseBack(next, node);
+				return
+			} else {
+				var prev = node.next();
+				var next = node.prev();
+				node.refersTo = next;
+				recurse(prev);
+			}
+		};
+
+		function recurseBack (node, prev) {
+			if (!node.refersTo) {
+				node.referredBy = prev;
+				return
+			} else {
+				var next = node.prev();
+				node.referredBy = prev;
+				recurseBack(next, node);
+			}
+		};
+
+		recurse(this.head());
+		this.print();
+	}
+};
+
+function Node (value) {
+	this.val = value;
+	this.refersTo = null;
+	this.referredBy = null;
+}
+
+Node.prototype = {
+	pointsTo: function (node) {
+		this.refersTo = node;
+		node.referredBy = this;
+		return this;
+	},
+
+	reverseConnectionWith: function (node) {
+		var next = node.refersTo;
+		node.referredBy = next;
+	},
+
+	prev: function () {
+		return this.referredBy;
+	},
+
+	next: function () {
+		return this.refersTo;	
+	}
+};
+
+doublyLinkedList = new DoublyLinkedList();
+head = new Node(1);
+firstNode = new Node(2);
+secondNode = new Node(3);
+tail = new Node(4);
+
+doublyLinkedList.addNode(head);
+doublyLinkedList.addNode(firstNode);
+doublyLinkedList.addNode(secondNode);
+doublyLinkedList.addNode(tail);
+
+head.pointsTo(firstNode);
+firstNode.pointsTo(secondNode);
+secondNode.pointsTo(tail);
+
+doublyLinkedList.print();
+doublyLinkedList.reverseListandPrint();
+
 
 // ====================================================================
 // Anagrams: Number to Letters
