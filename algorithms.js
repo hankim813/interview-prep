@@ -247,7 +247,7 @@ function reverseLinkedList (node) {
 // Anagrams: Number to Letters
 // ====================================================================
 
-// Input: an integer where 1-26 represents a corresponding letter in the alphabet where num > 0
+// Input: a number in the form of a string where 1-26 represents a corresponding letter in the alphabet where num > 0
 // Output: all possible combinations of letters
 
 // i.e. 111 = a, ka, aaa, ak
@@ -280,31 +280,34 @@ var alphabet = {
 		25:'y',
 		26:'z'
 	}
-num = 1234
-
-1,2,3,4
-1,23,4
-12,3,4
 
 function numsToLetters (num) {
-	var number = numToString(num);
-	var combos;
-	var currentNum = '';
-	var letters = [];
+	var result = []; 
 
-	for (var i = 0; i < number.length; i++;) {
-
+	function recurseNum (combo, num) {
+		if (!num) {
+			result.push(combo)
+			return
+		} 
+		var newNum = num.substring(1);
+		var newCombo = combo + alphabet[num[0]];
+		recurseNum(newCombo, newNum);
+		
+		if ((num.length > 1) && num.substring(0,2) <= 26) {
+			var newNum2 = num.substring(2);
+			var combo2 = combo + alphabet[num.substring(0,2)];
+			recurseNum(combo2, newNum2);
+		}
 	}
 
-	for (var h = 0; h < combos.length; h++) {
-		console.log(alphabet[combos[h]]);
-	}
+	recurseNum('', num)
+	return result;
+}	
 
-};
+// Complexity:
+// Greedy Approach. O(n) time and O(n) space
 
-function numToString(n) {
-	return n + '';
-}
+
 
 
 
