@@ -524,3 +524,8 @@ hello.world.call(hello, 'han');
 // They do not have any built in array so that is why you have to alter the Array prototype.
 
 
+// ====================================================================
+// Change Maker
+// ====================================================================
+// Make a function that takes itemPrice and changeInput as params and find out how many 
+// dollars, quarters., dimes nickels and pennies they should get in return.
