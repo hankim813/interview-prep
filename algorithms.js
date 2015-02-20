@@ -453,9 +453,34 @@ function numsToLetters (num) {
 // Complexity:
 // Greedy Approach. O(n) time and O(n) space
 
+// ====================================================================
+// Async Functions: Chaining AJAX Calls
+// ====================================================================
 
+// Input  : Given an array of ajax calls (uri's)
+// Output	: Must return --only after all ajax calls were completed-- an array of all the responses, 
+// 					in the order of the calls made
 
+var ajaxCalls = ['http://localhost:3000', 'http://han.com', 'http://hello.com'];
 
+function chainAsyncCalls (calls) {
+	var responses = [];
+
+	function fireAjax (address) {
+		http.get(address).success(function (response) {
+			responses.push(response);
+		}).error(function (error) {
+			responses.push(error);
+		})
+		if (calls.length) { fireAjax(calls.shift()) };
+	};
+
+	fireAjax(calls.shift());
+	return responses;
+};
+
+// Complexity:
+// Greedy Approach. O(n) time and space
 
 
 
