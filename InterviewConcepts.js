@@ -110,5 +110,5 @@
 // ==========================================================
 // Backburner Topics
 // ==========================================================
-// HTTP request caching, enhanced server caching, proxy server, progressive CSS/JS/image loading. DB Shards
+// HTTP request caching(proxy servers, etc.), enhanced server caching (memcached, etc.), progressive CSS/JS/image loading. DB Shards
 

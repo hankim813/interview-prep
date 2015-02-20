@@ -7,51 +7,50 @@
 // Solution:
 
 var spiralTraverseMatrix = function (array) {
-	var results = [];
-	var starting_row_index = 0;
-	var starting_col_index = 0;
-	var ending_row_index = array.length - 1;
-	var ending_col_index = array[0].length - 1;
+	var startingRowIndex = 0;
+	var startingColIndex = 0;
+	var endingRowIndex = array.length - 1;
+	var endingColIndex = array[0].length - 1;
 
-	while (starting_col_index <= ending_col_index && starting_row_index <= ending_row_index) {
+	while (startingColIndex <= endingColIndex && startingRowIndex <= endingRowIndex) {
 
-		for (var i = starting_col_index; i <= ending_col_index; i++) {
-			results.push(array[starting_row_index][i]);
+		for (var i = startingColIndex; i <= endingColIndex; i++) {
+			console.log(array[startingRowIndex][i])
 		}
-		starting_row_index ++;
+		startingRowIndex ++;
 
-		for (var i = starting_row_index; i <= ending_row_index; i++) {
-			results.push(array[i][ending_col_index]);
+		for (var i = startingRowIndex; i <= endingRowIndex; i++) {
+			console.log(array[i][endingColIndex])
 		}
-		ending_col_index --;
+		endingColIndex --;
 
-		if (starting_row_index < ending_row_index) {
-			for (var i = ending_col_index; i >= starting_col_index; i--) {
-				results.push(array[ending_row_index][i]);
+		if (startingRowIndex < endingRowIndex) {
+			for (var i = endingColIndex; i >= startingColIndex; i--) {
+				console.log(array[endingRowIndex][i])
 			}
 		};
 
-		ending_row_index --;
+		endingRowIndex --;
 
-		if (starting_col_index < ending_col_index) {
-			for (var i = ending_row_index; i >= starting_row_index; i--) {
-				results.push(array[i][starting_col_index]);
+		if (startingColIndex < endingColIndex) {
+			for (var i = endingRowIndex; i >= startingRowIndex; i--) {
+				console.log(array[i][startingColIndex])
 			}
 		}
 		
-		starting_col_index ++
+		startingColIndex ++
 	}
-	for (var i = 0; i <= results.length - 1; i++) {
-		console.log(results[i]);
-	}
-	return results;
+	// for (var i = 0; i <= results.length - 1; i++) {
+	// 	console.log(results[i]);
+	// }
+	// return results;
 };
 
 var exampleArray = [['a','b','c','d'],['j','k','l','e'],['i','h','g','f']];
 spiralTraverseMatrix(exampleArray);
 
 // Complexity:
-// Greedy Approach. O(n^2) Time O(n) Space. Can be O(1) space if you just pop off from the input array
+// Greedy Approach. O(n^2) Time O(1) Space.
 
 // ====================================================================
 // Apple Stocks
@@ -62,20 +61,20 @@ spiralTraverseMatrix(exampleArray);
 // Solution:
 
 function greatestProfit (stocks) {
-	var min_price = stocks[0];
-	var max_profit = 0;
+	var minPrice = stocks[0];
+	var maxProfit = 0;
 
 	for (var i = 0; i < stocks.length; i++) {
-		// Check if the current price is lower than min_price and if so update the min_price
-		if (stocks[i] < min_price) {
-			min_price = stocks[i];
+		// Check if the current price is lower than minPrice and if so update the minPrice
+		if (stocks[i] < minPrice) {
+			minPrice = stocks[i];
 		}
-		// Check if selling at the current price will yield more profit than max_profit, if so update.
-		if (stocks[i] - min_price > max_profit) {
-			max_profit = stocks[i] - min_price;
+		// Check if selling at the current price will yield more profit than maxProfit, if so update.
+		if (stocks[i] - minPrice > maxProfit) {
+			maxProfit = stocks[i] - minPrice;
 		}
 	}
-	return max_profit;
+	return maxProfit;
 };
 
 // Complexity: 
@@ -131,8 +130,8 @@ function bracketValidator (code) {
 // Solution:
 
 function longestPalindrome (string) {
-	var potentialWord = '';
-	var longestWord = '';
+	var potentialWord;
+	var longestWord;
 
 	for (var i = 0; i < string.length - 1; i++) {
 		for (var k = i + 1; k < string.length; k++) {
@@ -148,7 +147,9 @@ function longestPalindrome (string) {
 };
 
 // Complexity:
-// Greedy Approach. O(n^3) time O(1) space. Can be O(n^2) (find each possible center and move outwords, and check if left and right is the same.) and O(n) time. Manacher Algorithm
+// Greedy Approach. O(n^3) time O(1) space. Can be O(n^2) (find each possible center and move outwords,
+// and check if left and right is the same.) and O(n) time. Manacher Algorithm. 
+
 
 // ====================================================================
 // For Loop Javascript TimeOut Bug Fix
@@ -159,7 +160,14 @@ function longestPalindrome (string) {
 // 		console.log(i);
 // 	}, 0)
 // }
-// In most other languages, the code above would lead to an error because the “life” (i.e., scope) of the variable i would be restricted to the for block. In JavaScript, though, this is not the case and the variable i remains in scope even after the for loop has completed, retaining its last value after exiting the loop. (This behavior is known, incidentally, as variable hoisting). setTimeout adds to the browser event queue, so when the for loop completes, i = 5 and thus the i inside the console log is referencing that i, and printing '5' five times.
+
+// In most other languages, the code above would lead to an error because the “life” (i.e., scope) 
+// of the variable i would be restricted to the for block. In JavaScript, though, this is not the 
+// case and the variable i remains in scope even after the for loop has completed, retaining its 
+// last value after exiting the loop. (This behavior is known, incidentally, as variable hoisting). 
+// setTimeout adds to the browser event queue, so when the for loop completes, i = 5 and thus the 
+// i inside the console log is referencing that i, and printing '5' five times.
+
 // Output: Fix the bug, since it logs 5 five times, not 0, 1, 2, 3, 4
 // We get rid of the reference to i by passing it in as a variable, and also immediately invoke the function so that it is not being queued in the browser events.
 
@@ -177,22 +185,22 @@ function javascriptBugFix () {
 // Make a Linked List and Print
 // ====================================================================
 
-function LinkedList () {
+function LinkedList (head) {
 	this.list = [];
+	this.head = head;
 };
 
-LinkedList.prototype.head = function() {
-	return this.list[0];
-};
+LinkedList.prototype = {
+	addNode: function (node) {
+		this.list.push(node);
+		return this.list;
+	},
 
-LinkedList.prototype.addNode = function (node) {
-	this.list.push(node);
-};
-
-function printLinkedList (node) {
-	console.log(node.val);
-	if (node.refersTo) {
-		return printLinkedList(node.next());
+	print: function (node) {
+		console.log(node.val)
+		if (node.refersTo) {
+			return this.print(node.next());
+		}
 	}
 };
 
@@ -201,16 +209,18 @@ function Node (val) {
 	this.refersTo = null;
 };
 
-Node.prototype.next = function() {
-	return this.refersTo;
+Node.prototype = {
+	next: function() {
+		return this.refersTo;
+	},
+
+	setRef: function (node) {
+		this.refersTo = node;
+	}
 };
 
-Node.prototype.setRef = function(node) {
-	this.refersTo = node;
-};
-
-var linkedList = new LinkedList ();
 var head = new Node (1);
+var linkedList = new LinkedList (head);
 var firstNode = new Node (2);
 var secondNode = new Node (3);
 linkedList.addNode(head);
@@ -218,31 +228,35 @@ linkedList.addNode(firstNode);
 linkedList.addNode(secondNode);
 head.setRef(firstNode);
 firstNode.setRef(secondNode);
-printLinkedList(linkedList.head());
+linkedList.print(linkedList.head);
 
 // ====================================================================
 // Reverse/Print a Linked List
 // ====================================================================
 
-function reverseLinkedList (node) { 
+LinkedList.prototype.reverse = function() {
 	var previous = null;
-	var newList = [];
+	var list = this;
 
-	while (node) {
-		newList.unshift(node);
-		save = node.next();
-		node.setRef(previous);
-		previous = node; 
-		node = save
-	} 
+	function recurse(node) {
+		if (!node.next()) {
+			node.refersTo = previous;
+			list.head = node;
+			return
+		}
+		var next = node.next();
+		node.refersTo = previous
+		previous = node;
+		node = next
+		recurse(node);
+	};
 
-	for (var i = 0; i < newList.length; i++){
-		console.log(newList[i].val);
-	}
+	recurse(this.head);
+	return this.print(this.head);
 };
 
 // Complexity
-// Greedy/Bucketing Approach. O(n) time and space
+// Greedy/Bucketing Approach. O(n) time and O(1) space
 
 // ====================================================================
 // DLL: Create a Doubly Linked List
