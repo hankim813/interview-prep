@@ -482,5 +482,31 @@ function chainAsyncCalls (calls) {
 // Complexity:
 // Greedy Approach. O(n) time and space
 
+// ====================================================================
+// Call() and Apply() Trick
+// ====================================================================
+
+// Rewrite the Call() function using Apply()
+
+var hello = {
+	world: function (name) {
+		return 'Good morning, ' + name + ' :)'
+	}
+};
+
+
+function call (context, arg) {
+	console.log(arguments)
+	var options = Array.prototype.slice.apply(arguments, [1]);
+	return apply(context, options);
+}
+
+hello.world.call(hello, 'han');
+
+// Note: 
+// call(context, arg1, arg2,..) 
+// apply(context, [args])
+// All functions have this special 'array' like object called 'arguments'. 
+// They do not have any built in array so that is why you have to alter the Array prototype.
 
 
