@@ -659,6 +659,33 @@ function merge(left, right) {
   return result;
 };
  
+// Complexity: 
+// O(n log n) time and O(n) space
+
+// ====================================================================
+// Sorting: Bubble Sort
+// ====================================================================
+// Implement a bubble sort algorithm.
+
+function bubbleSort (array) {
+  var swapped = true;
+  var temp;
+  while (swapped) {
+    swapped = false;
+    for (var i = 0; i < array.length - 1; i++) {
+      if (array[i] > array[i + 1]) {
+        temp = array[i];
+        array[i] = array[i+1];
+        array[i + 1] = temp;
+        swapped = true;
+      }
+    }
+  }
+  return array 
+}
+ 
+// Complexity:
+// O(n^2) Time O(1)
 
 // ====================================================================
 // Roman Numerals
