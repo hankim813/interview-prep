@@ -510,7 +510,6 @@ var hello = {
 
 
 function call (context, arg) {
-	console.log(arguments)
 	var options = Array.prototype.slice.apply(arguments, [1]);
 	return apply(context, options);
 }
@@ -530,7 +529,40 @@ hello.world.call(hello, 'han');
 // Make a function that takes itemPrice and changeInput as params and find out how many 
 // dollars, quarters, dimes, nickels, and pennies they should get in return.
 
+var itemPrice = 8.68;
+var changeInput = 20.00;
 
+
+function changeMaker (itemPrice, changeInput) {
+	var changeNeeded = changeInput - itemPrice;
+	var change = {
+		dollars: Math.floor(changeNeeded),
+		quarters: 0,
+		dimes: 0,
+		nickels: 0,
+		pennies: 0
+	};
+
+	changeNeeded -= change.dollars;
+	console.log(changeNeeded);
+	change.quarters = Math.floor(changeNeeded / 0.25);
+	changeNeeded -= change.quarters;
+	console.log(changeNeeded);
+
+	change.dimes = Math.floor(changeNeeded / 0.10);
+	changeNeeded -= change.dimes;
+	console.log(changeNeeded);
+
+	change.nickels = Math.floor(changeNeeded / 0.05);
+	changeNeeded -= change.nickels;
+	console.log(changeNeeded);
+
+	change.pennies = Math.floor(changeNeeded / 0.01);
+	changeNeeded -= change.pennies;
+	console.log(changeNeeded);
+	
+	return change;
+};
 
 // ====================================================================
 // Sorting: Quick Sort
