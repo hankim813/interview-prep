@@ -528,4 +528,106 @@ hello.world.call(hello, 'han');
 // Change Maker
 // ====================================================================
 // Make a function that takes itemPrice and changeInput as params and find out how many 
-// dollars, quarters., dimes nickels and pennies they should get in return.
+// dollars, quarters, dimes, nickels, and pennies they should get in return.
+
+
+
+// ====================================================================
+// Sorting: Quick Sort
+// ====================================================================
+// Implement a quick sort algorithm.
+
+// Notes: 
+
+// Quicksort is a divide and conquer algorithm which relies on a partition operation: to partition an array an element
+// called a pivot is selected. All elements smaller than the pivot are moved before it and all greater elements are 
+// moved after it. This can be done efficiently in linear time and in-place. The lesser and greater sublists are then 
+// recursively sorted. This yields average time complexity of O(n log n), with low overhead, and thus this is a popular 
+// algorithm. Efficient implementations of quicksort (with in-place partitioning) are typically unstable sorts and 
+// somewhat complex, but are among the fastest sorting algorithms in practice. Together with its modest O(log n) space 
+// usage, quicksort is one of the most popular sorting algorithms and is available in many standard programming libraries.
+
+// The important caveat about quicksort is that its worst-case performance is O(n2); while this is rare, in naive 
+// implementations (choosing the first or last element as pivot) this occurs for sorted data, which is a common case. The 
+// most complex issue in quicksort is thus choosing a good pivot element, as consistently poor choices of pivots can 
+// result in drastically slower O(n2) performance, but good choice of pivots yields O(n log n) performance, which is 
+// asymptotically optimal. For example, if at each step the median is chosen as the pivot then the algorithm works in
+// O(n log n). Finding the median, such as by the median of medians selection algorithm is however an O(n) operation on 
+// unsorted lists and therefore exacts significant overhead with sorting. In practice choosing a random pivot almost 
+// certainly yields O(n log n) performance.
+
+var sortThis = [1,3,4,6,2,8,10,9,5]
+
+function quickSort (array) {
+	if (array.length === 0 || array.length === 1) {
+		return array;
+	}
+
+	var pivot = array[Math.floor(Math.random() * array.length)];
+	var left = [];
+	var right = [];
+
+	for (var i = 0; i < array.length; i++) {
+		if (array[i] < pivot) {
+			left.push(array[i]);
+		} else if (array[i] === pivot) {
+			continue;
+		} else {
+			right.push(array[i]);
+		}
+	}
+
+	return quickSort(left).concat(pivot, quickSort(right));
+};
+
+// Complexity: 
+// O(n^2) time O(log n) space but usually O(n log n) for time
+
+// ====================================================================
+// Sorting: Merge Sort
+// ====================================================================
+// Implement a merge sort algorithm.
+
+// Notes: 
+
+// Merge sort takes advantage of the ease of merging already sorted lists into a new sorted list. It starts by comparing 
+// every two elements (i.e., 1 with 2, then 3 with 4...) and swapping them if the first should come after the second. It 
+// then merges each of the resulting lists of two into lists of four, then merges those lists of four, and so on; until 
+// at last two lists are merged into the final sorted list. Of the algorithms described here, this is the first that 
+// scales well to very large lists, because its worst-case running time is O(n log n). It is also easily applied to 
+// lists, not only arrays, as it only requires sequential access, not random access. However, it has additional O(n) 
+// space complexity, and involves a large number of copies in simple implementations.
+
+function mergeSort (array) {
+  if (array.length < 2) {
+    return array;    	
+  }
+
+  var middle = Math.floor(array.length / 2);
+  var left   = array.slice(0, middle);
+  var right  = array.slice(middle, array.length);
+
+  return merge(mergeSort(left), mergeSort(right));
+};
+ 
+function merge(left, right) {
+  var result = [];
+
+  while (left.length && right.length) {
+    if (left[0] <= right[0]) {
+        result.push(left.shift());
+    } else {
+        result.push(right.shift());
+    }
+  }
+
+  while (left.length) {
+    result.push(left.shift());
+  }
+
+  while (right.length) {
+    result.push(right.shift());
+  }
+  return result;
+};
+ 

@@ -4,7 +4,7 @@ var input = “hello my name name name is han.”
 
 //code
 function mostFrequentWords (string) {
-	var dummyString = string.split(“ “);
+	var dummyString = string.split(' ');
 	var words = {};
 	var topFive = [];
 	var lowestPossibleWordCount = 0; // word that has the lowest counter in the topFive
