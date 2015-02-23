@@ -544,23 +544,19 @@ function changeMaker (itemPrice, changeInput) {
 	};
 
 	changeNeeded -= change.dollars;
-	console.log(changeNeeded);
+
 	change.quarters = Math.floor(changeNeeded / 0.25);
-	changeNeeded -= change.quarters;
-	console.log(changeNeeded);
+	changeNeeded -= change.quarters * 0.25;
 
 	change.dimes = Math.floor(changeNeeded / 0.10);
-	changeNeeded -= change.dimes;
-	console.log(changeNeeded);
+	changeNeeded -= change.dimes * 0.10;
 
 	change.nickels = Math.floor(changeNeeded / 0.05);
-	changeNeeded -= change.nickels;
-	console.log(changeNeeded);
+	changeNeeded -= change.nickels * 0.05;
 
 	change.pennies = Math.floor(changeNeeded / 0.01);
-	changeNeeded -= change.pennies;
-	console.log(changeNeeded);
-	
+	changeNeeded -= change.pennies * 0.01;
+
 	return change;
 };
 
@@ -663,3 +659,40 @@ function merge(left, right) {
   return result;
 };
  
+
+// ====================================================================
+// Roman Numerals
+// ====================================================================
+// Implement a roman numeral converter
+
+String.prototype.repeat = function(num) {
+  return new Array(num + 1).join(this);
+}
+
+function romanNumeral (num) {
+  var romanNum = [
+    ['M', 1000],
+    ['CM', 900],
+    ['D', 500],
+    ['CD', 400],
+    ['C' , 100],
+    ['XC', 90],
+    ['L', 50],
+    ['XL', 40],
+    ['X', 10],
+    ['IX', 9],
+    ['V', 5],
+    ['IV', 4],
+    ['I', 1]
+  ];
+  var romanString = "";
+  for (var i = 0; i < romanNum.length; i++) {
+  	romanString += romanNum[i][0].repeat(Math.floor(num / romanNum[i][1]));
+  	num = num % romanNum[i][1];
+  }
+  return romanString;
+};
+
+
+
+
