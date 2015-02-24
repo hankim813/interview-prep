@@ -721,5 +721,103 @@ function romanNumeral (num) {
 };
 
 
+// ====================================================================
+// Graphs
+// ====================================================================
+// Graph data structures!
+
+// Vertices (nodes) connected by edges to represent a graph structure.
+// Adjacency lists hold edges. Use vertex indexed array of lists so you know which vertices are connected to which.
+
+function Graph (v) {
+	this.vertices = v;
+	this.edges = 0;
+	this.adjList = [];
+	this.marked = [];
+	this.edgeTo = [];
+
+	for (var i = 0; i < this.vertices; i++) {
+		this.adjList[i] = [];
+	}
+
+	for (var j = 0; j < this.vertices; j++) {
+		this.marked[j] = false;
+	}
+};
+
+Graph.prototype = {
+	addEdge: function(v, w) {
+		this.adjList[v].push(w);
+		this.adjList[w].push(v);
+		this.edges++;
+	},
+
+	showGraph: function () {
+		var string = '';
+		for (var i = 0; i < this.vertices; i++) {
+			string += (i + ' --> ');
+			for (var j = 0; j < this.vertices; j++) {
+				if (this.adjList[i][j] !== undefined) {
+					string += (this.adjList[i][j] + ' ');
+				}
+				console.log(string);
+			}
+		}
+	},
+
+	dfs: function (v) {
+		this.marked[v] = true;
+		if (this.adjList[v] !== undefined) {
+			console.log('Visited vertex: ' + v);
+		}
+
+		for (var i = 0; i < this.adjList[v].length; i++) {
+			var w = this.adjList[v][i];
+			if (!this.marked[w]) {
+				this.dfs(w);
+			}
+		}
+	},
+
+	bfs: function(v) {
+		var queue = [];
+		this.marked[v] = true
+		queue.push(v);
+		while (queue.length > 0) {
+			var next = queue.shift();
+			if (next !== undefined) {
+				console.log('Visited Vertex: ' + next);
+			}
+
+			for (var i = 0; i < this.adjList[next].length; i++) {
+				var w = this.adjList[next][i];
+				if (!this.marked[w]) {
+					queue.push(w);
+					this.marked[w] = true;
+					this.edgeTo[w] = next;
+				}
+			}
+		}
+	},
+
+	pathTo: function (source, v) {
+		if (!this.marked[v]) {
+			return undefined;
+		}
+		var path = [];
+		for (var i = v; i !== source; i = this.edgeTo[i]) {
+			path.push(i);
+		}
+		path.push(source);
+		return path;
+	}
+};
+
+// Depth First Search: Following a path from the beginning vertex until it reaches the last vertex, then backtracking and 
+// following the next path until it reaches the last vertex, and so on until there are no paths left. We are searching to 
+// see what paths we can follow in a graph. You use this for topological sorting.
+
+// Breadth First Search: Starts at first vertex and tries to visit vertices closes to the first vertex as possible.
+// So it searches layer by layer. This is how you find shortest path.
 
 
