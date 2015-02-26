@@ -820,4 +820,125 @@ Graph.prototype = {
 // Breadth First Search: Starts at first vertex and tries to visit vertices closes to the first vertex as possible.
 // So it searches layer by layer. This is how you find shortest path.
 
+// ====================================================================
+// Binary Search
+// ====================================================================
+// Implement Binary Search
+// Input: sorted array, and a number to find
+// Output: index of the number
+
+function binarySearch(array, number) {
+	var low = 0;
+	var high = array.length - 1;
+	var middle = Math.floor(array.length / 2);
+	var result;
+
+	function search (newArray, low, middle, high) {
+		if (newArray[middle] === number) {
+			return result = array.indexOf(newArray[middle]);
+		} else if (number < newArray[middle]) {
+			high = middle - 1;
+			middle 		= Math.floor(newArray.slice(low, high).length / 2);
+			search(newArray.slice(low, high), low, middle, high);
+		} else {
+			low 			= middle + 1;
+			middle 		= Math.floor(newArray.slice(low, high).length / 2);
+			search(newArray.slice(low, high), low, middle, high); 
+		}
+	}
+
+	search(array, low, middle, high);
+	return result;
+};
+
+var searchThis = [1,2,3,4,5,6,7,8,9,10];
+
+// Complexity:
+// O(log n) time O(1) space
+
+// ====================================================================
+// Trees
+// ====================================================================
+// Implement a Tree
+// Notes:
+// A tree data structure can be defined recursively (locally) as a collection of nodes (starting at a root node), where 
+// each node is a data structure consisting of a value, together with a list of references to nodes (the "children"), 
+// with the constraints that no reference is duplicated, and none points to the root.
+
+function Tree (rootNode) {
+	this.root = rootNode;
+};
+
+function Node (val) {
+	this.val = val;
+	this.children = {};
+};
+
+Node.prototype.refersTo = function (childNode) {
+	if (!this.children[childNode.val]) {
+		this.children[childNode.val] = childNode;
+	}
+	return this.children;
+};
+
+Tree.prototype.bfs = function (val) {
+	var queue = [this.root];
+	var result;
+
+	while (queue.length > 0) {
+		node = queue.shift();
+		console.log('visited: ', node);
+
+		if (node.val === val) {
+			return result = node;
+		} else if (Object.keys(node.children).length === 0) {
+			continue;
+		} else {
+			for (var child in node.children) {
+				queue.push(node.children[child]);
+			}
+		}
+	}
+	return result;
+};
+
+Tree.prototype.dfs = function (val) {
+	var queue = [this.root];
+	var result;
+
+	while (queue.length > 0) {
+		node = queue.shift();
+		console.log('visited: ', node);
+
+		if (node.val === val) {
+			return result = node;
+		} else if (Object.keys(node.children).length === 0) {
+			continue;
+		} else {
+			for (var child in node.children) {
+				queue.unshift(node.children[child]);
+			}
+		}
+	}
+	return result;
+};
+
+var root = new Node(0);
+var tree = new Tree(root);
+var child1 = new Node(1);
+var child2 = new Node(2);
+var child3 = new Node(3);
+var child4 = new Node(4);
+var child5 = new Node(5);
+var child6 = new Node(6);
+root.refersTo(child1);
+root.refersTo(child2);
+child1.refersTo(child3);
+child1.refersTo(child4);
+child2.refersTo(child5);
+child2.refersTo(child6);
+
+
+
+
 
