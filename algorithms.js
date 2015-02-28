@@ -40,10 +40,6 @@ var spiralTraverseMatrix = function (array) {
 		
 		startingColIndex ++
 	}
-	// for (var i = 0; i <= results.length - 1; i++) {
-	// 	console.log(results[i]);
-	// }
-	// return results;
 };
 
 var exampleArray = [['a','b','c','d'],['j','k','l','e'],['i','h','g','f']];
@@ -244,11 +240,9 @@ LinkedList.prototype.reverse = function() {
 			list.head = node;
 			return
 		}
-		var next = node.next();
 		node.refersTo = previous
 		previous = node;
-		node = next
-		recurse(node);
+		recurse(node.next());
 	};
 
 	recurse(this.head);
@@ -584,7 +578,7 @@ function changeMaker (itemPrice, changeInput) {
 // unsorted lists and therefore exacts significant overhead with sorting. In practice choosing a random pivot almost 
 // certainly yields O(n log n) performance.
 
-var sortThis = [1,3,4,6,2,8,10,9,5]
+var sortThis = [1,3,4,6,6,2,8,10,9,5]
 
 function quickSort (array) {
 	if (array.length === 0 || array.length === 1) {
@@ -938,7 +932,28 @@ child1.refersTo(child4);
 child2.refersTo(child5);
 child2.refersTo(child6);
 
+// ====================================================================
+// Permutations
+// ====================================================================
 
+function permute(input) {
+	var permutatedArray = [],
+  usedChars = [];
 
-
+	function recurse (input) {
+	  var character;
+	  for (var i = 0; i < input.length; i++) {
+	    character = input.splice(i, 1)[0];
+	    usedChars.push(character);
+	    if (input.length === 0) {
+	      permutatedArray.push(usedChars.slice());
+	    }
+	    recurse(input);
+	    input.splice(i, 0, character); // resets
+	    usedChars.pop(); // resets
+	  }
+	};
+	recurse(input);
+  return permutatedArray
+}
 
